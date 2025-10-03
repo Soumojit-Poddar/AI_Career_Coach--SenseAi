@@ -62,6 +62,14 @@ const OnboardingForm = ({ industries }) => {
       });
     } catch (error) {
       console.error("Onboarding error:", error);
+      if (error.message === "Unauthorized") {
+        toast.error("You must be signed in to complete your profile. Redirecting to sign-in...");
+        setTimeout(() => {
+          router.push("/sign-in");
+        }, 2000);
+      } else {
+        toast.error("Failed to complete profile. Please try again.");
+      }
     }
   };
 

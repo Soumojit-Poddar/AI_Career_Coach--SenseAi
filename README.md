@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AI Career Coach
 
-## Getting Started
+## Project Overview
+AI Career Coach is a web application designed to provide personalized career insights and recommendations using AI. Users can complete their profile by selecting their industry, specialization, and providing professional details. The app offers tailored career advice based on the user's profile.
 
-First, run the development server:
+## Features
+- User authentication and onboarding
+- Industry and specialization selection
+- Profile completion with experience, skills, and bio
+- Personalized AI-generated career insights
+- Dashboard with industry insights and recommendations
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Setup Instructions
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Prerequisites
+- Node.js (v16 or higher recommended)
+- npm or yarn package manager
+- A Clerk account for authentication (https://clerk.com/)
+- A database supported by Prisma (e.g., PostgreSQL)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd ai-career-coach
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-## Learn More
+3. Configure environment variables:
+   Create a `.env` file in the root directory with the following variables:
+   ```
+   DATABASE_URL=your_database_connection_string
+   NEXT_PUBLIC_CLERK_FRONTEND_API=your_clerk_frontend_api
+   CLERK_API_KEY=your_clerk_api_key
+   CLERK_JWT_KEY=your_clerk_jwt_key
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Run database migrations:
+   ```bash
+   npx prisma migrate deploy
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+6. Open your browser and navigate to `http://localhost:3000`
 
-## Deploy on Vercel
+## Usage Guide
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### User Onboarding
+- New users must sign in using Clerk authentication.
+- Upon first login, users are redirected to the onboarding page.
+- Users complete their profile by selecting their industry, specialization, and providing experience, skills, and a professional bio.
+- The onboarding form validates inputs and submits data to update the user profile.
+- If the user is not authenticated during profile completion, they are redirected to the sign-in page with an error message.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Dashboard
+- After onboarding, users are redirected to the dashboard.
+- The dashboard displays personalized industry insights and career recommendations based on the user's profile.
+
+### Error Handling
+- Unauthorized access attempts redirect users to the sign-in page.
+- Form validation errors are displayed inline.
+- Server errors during profile update show toast notifications.
+
+## Technologies Used
+- Next.js 13 with App Router
+- React Hook Form and Zod for form handling and validation
+- Prisma ORM for database access
+- Clerk for user authentication
+- Tailwind CSS for styling
+- Sonner for toast notifications
+
+## Contributing
+Contributions are welcome! Please open issues or pull requests for bug fixes and feature requests.
+
+## License
+This project is licensed under the MIT License.
+
+---
+
+For any questions or support, please contact the project maintainer.

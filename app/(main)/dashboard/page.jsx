@@ -4,12 +4,21 @@ import { getUserOnboardingStatus } from "@/actions/user";
 import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
-  const { isOnboarded } = await getUserOnboardingStatus();
+  try {
+    const { isOnboarded } = await getUserOnboardingStatus();
 
-  // If not onboarded, redirect to onboarding page
-  // Skip this check if already on the onboarding page
-  if (!isOnboarded) {
-    redirect("/onboarding");
+    // If not onboarded, redirect to onboarding page
+    // Skip this check if already on the onboarding page
+    if (!isOnboarded) {
+      redirect("/onboarding");
+    }
+  } catch (error) {
+    // If unauthorized error, redirect to login page
+    if (error.message === "Unauthorized") {
+      redirect("/sign-in");
+    }
+    // For other errors, rethrow
+    throw error;
   }
 
   const insights = await getIndustryInsights();
